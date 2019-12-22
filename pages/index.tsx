@@ -1,10 +1,10 @@
 import React from 'react';
 import { NextPage } from 'next';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
 import { Layout } from '../components/Layout';
 import { TasksComponent, TaskStatus } from '../generated/graphql';
 import { TaskList } from '../components/TaskList';
+import CreateTaskForm from '../components/CreateTaskForm';
 
 interface IntialProps {
     greeting: string;
@@ -27,8 +27,12 @@ const IndexPage: NextPage<Props, IntialProps> = props => {
                     const tasks = data && data.tasks ? data.tasks : [];
                     
                 
-                    return <TaskList tasks={tasks}></TaskList>;
-
+                    return (
+                        <>
+                            <CreateTaskForm />
+                            <TaskList tasks={tasks}></TaskList>
+                        </>
+                    );
                 }}  
             </TasksComponent>
         </Layout>
