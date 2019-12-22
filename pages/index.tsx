@@ -1,6 +1,5 @@
 import React from 'react';
 import { NextPage } from 'next';
-import gql from 'graphql-tag';
 import { Layout } from '../components/Layout';
 import { TasksComponent, TaskStatus } from '../generated/graphql';
 import { TaskList } from '../components/TaskList';
@@ -18,7 +17,7 @@ const IndexPage: NextPage<Props, IntialProps> = props => {
     return (
         <Layout> 
             <TasksComponent variables={{status:TaskStatus.Active}}> 
-                {({loading, error, data}) => {
+                {({loading, error, data, refetch }) => {
                     if (loading) {
                         return <p> loading </p>
                     } else if (error) {
@@ -29,7 +28,7 @@ const IndexPage: NextPage<Props, IntialProps> = props => {
                 
                     return (
                         <>
-                            <CreateTaskForm />
+                            <CreateTaskForm onTaskCreated={refetch} />
                             <TaskList tasks={tasks}></TaskList>
                         </>
                     );
